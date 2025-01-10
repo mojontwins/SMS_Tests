@@ -1,6 +1,8 @@
 // This goes to bank 2!
+
 extern const unsigned char ts_chars [0];
 extern const unsigned char ss_test [0];
+
 #asm
 	SECTION BANK_02
 

@@ -26,6 +26,8 @@ Using the old converters I wrote in 2016, they should suffice (at least for the 
 
 ## Things to remember:
 
+Use a modern, updated, nightly build of **z88dk**. I'm using today's (January 10th).
+
 Carts have a stupid header. Remember to include `zpragma.inc`. This will use some vars as found in the main binary. I've set this up so vars can be added a the top of the main module and be called `_name`, `_author` and `_description`.
 
 There are 512 total patterns, half for the sprites, half for the tiles. You configure which half is used by the tileset using `SMS_useFirstHalfTilesforSprites`. 
