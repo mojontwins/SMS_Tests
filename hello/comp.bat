@@ -20,7 +20,8 @@ del ss_patterns_items.bin > nul
 rem compile
 echo Compile
 zcc +sms -vn -c -clib=new --constsegBANK_02 bank2.c -o bank2.o > nul
-zcc +sms -vn -m -startup=16 -clib=new -O3 hell.c bank2.o -o hell -pragma-include:zpragma.inc -create-app > nul
+zcc +sms -vn -c -clib=new --constsegBANK_03 bank3.c -o bank3.o > nul
+zcc +sms -vn -m -startup=16 -clib=new -O3 hell.c bank2.o bank3.o -o hell -pragma-include:zpragma.inc -create-app > nul
 
 rem cleanup
 del *.bin > nul

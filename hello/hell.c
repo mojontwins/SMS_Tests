@@ -11,6 +11,7 @@ const unsigned char _description[] = "Pero que seto";
 #include <compress/aplib.h>
 
 #include "bank2.h" 			// Patterns
+#include "bank3.h" 			// Music
 #include "ss_items.h" 		// Metaspriteset data
 #include "pals0.h" 			// Palette 
 
@@ -47,12 +48,21 @@ void main (void) {
 	// Screen on!
 	SMS_displayOn ();
 
+	// Music 
+	PSGPlay (psg_0);
+
 	// Loop
 	while (1) {
 		// Move sprite
 		sx += smx; sy += smy;
-		if (sx == 0 || sx == 240) smx = -smx;
-		if (sy == 0 || sy == 176) smy = -smy;
+		if (sx == 0 || sx == 240) {
+			smx = -smx; 
+			PSGSFXPlay (sfx_0, 1);
+		}
+		if (sy == 0 || sy == 176) {
+			smy = -smy; 
+			PSGSFXPlay (sfx_0, 1);
+		}
 		
 		// Update metasprites
 		SMS_initSprites ();
@@ -62,5 +72,10 @@ void main (void) {
 		// Wait & copy
 		SMS_waitForVBlank ();
 		SMS_copySpritestoSAT ();
+
+		// OGT Run
+		SMS_mapROMBank (3);
+		PSGSFXFrame ();	 // No sfx now
+		PSGFrame ();	
 	}
 }
