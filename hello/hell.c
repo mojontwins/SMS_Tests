@@ -17,16 +17,10 @@ const unsigned char _description[] = "Pero que seto";
 
 #include "printer.h"
 
-// Sprite shit
-unsigned char sx, sy;
-signed char smx, smy;
-
 void main (void) {
 	// Sprite pattersn from 0 (0)
 	// Tile patterns from 256 (4096)
 	SMS_useFirstHalfTilesforSprites (1);
-
-	sx = 128; sy = 80; smx = 1; smy = -1;
 
 	// Set palette
 	SMS_loadBGPalette (pals0);
@@ -37,6 +31,9 @@ void main (void) {
 
 	// Page in bank 2
 	SMS_mapROMBank (2);
+
+	// This function is in bank 2
+	init_cosas();
 
 	// Load patterns
 	sms_aplib_depack_vram (0x2000, ts_chars);			// Address 256*32 for tiles
@@ -53,21 +50,9 @@ void main (void) {
 
 	// Loop
 	while (1) {
-		// Move sprite
-		sx += smx; sy += smy;
-		if (sx == 0 || sx == 240) {
-			smx = -smx; 
-			PSGSFXPlay (sfx_0, 1);
-		}
-		if (sy == 0 || sy == 176) {
-			smy = -smy; 
-			PSGSFXPlay (sfx_0, 1);
-		}
-		
-		// Update metasprites
-		SMS_initSprites ();
-		MT_addmeta_2x2 (sx, sy, ss_items_01);
-		SMS_finalizeSprites ();
+		// This function is in bank 2
+		SMS_mapROMBank (2);
+		mueve_cosas ();
 
 		// Wait & copy
 		SMS_waitForVBlank ();
@@ -75,7 +60,7 @@ void main (void) {
 
 		// OGT Run
 		SMS_mapROMBank (3);
-		PSGSFXFrame ();	 // No sfx now
+		PSGSFXFrame ();	
 		PSGFrame ();	
 	}
 }
